@@ -10,7 +10,7 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
-    <title>Manish Kumar - Portfolio</title>
+    <title>Short kro url ko</title>
 
     <style>
       :root {
@@ -31,14 +31,16 @@
         margin-bottom: 1.5em;
       }
 
-      body {
+      .body {
         font: 1em/1.618 Inter, sans-serif;
         min-height: 100vh;
         padding: 30px;
         margin: 0;
         color: #224;
-        background: url(https://source.unsplash.com/E8Ufcyxz514/2400x1823)
-          center / cover no-repeat fixed;
+        /* background: url("https://source.unsplash.com/E8Ufcyxz514/2400x1823") */
+        /* center / cover no-repeat fixed; */
+
+        background: rgb(10, 163, 201) center / cover no-repeat fixed;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -64,10 +66,62 @@
       .form-control {
         height: 40px;
         font-size: 16px;
+        box-shadow: 4px 4px rgb(129, 73, 125);
+        border-radius: 15px;
+      }
+      .alert {
+        text-align: center; /* Center text within alert */
+      }
+
+      .msg {
+        display: flex;
+        justify-content: center; /* Center the message horizontally */
+        align-items: center; /* Center the message vertically */
+        margin-top: 10px; /* Adjust margin as needed */
+        margin-left: 50px;
+      }
+
+      .container.mt-2.text-center {
+        margin-top: 20px; /* Added margin for spacing */
+      }
+      .btn-primary,
+      .btn-danger {
+        margin-left: 150px;
+        box-shadow: 0 5px 5px rgba(163, 55, 156, 0.5); /* Adjust the blur radius and color transparency as needed */
+        background-color: #ac19ac;
+        border-radius: 15px;
+        border: 0 solid transparent;
+      }
+
+      .btn-primary:hover {
+        background-color: rgba(197, 124, 28, 0.87);
+        border: 2px rgb(5, 111, 250);
+      }
+      .btn-primary,
+      .btn-danger span {
+        text-shadow: 0 0 3px black; /* Adjust the shadow properties as needed */
+      }
+      /* Adjusted position of the "Generate" button on mobile */
+      @media (max-width: 576px) {
+        .form-control {
+          margin-left: 0; /* Reset left margin */
+        }
+        .btn-primary,
+        .btn-danger {
+          margin: auto; /* Center the button horizontally on mobile */
+          display: block; /* Make button full width on mobile */
+
+          justify-content: center;
+        }
+
+        .msg {
+          font-size: medium;
+          margin-left: 10px;
+        }
       }
     </style>
   </head>
-  <body>
+  <body class="body">
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
       <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
         <path
@@ -100,64 +154,106 @@
       >
         <div>
           <div class="mb-3">
-            <label for="originalUrl" class="form-label"> URL</label>
+            <label for="originalUrl" class="form-label">Enter Your URL</label>
             <input
               type="text"
               id="originalUrl"
               name="originalUrl"
               class="form-control"
-              placeholder="Enter URL... Ex. https://google.com/"
+              placeholder="Enter Your Long URL... Ex. https://google.com/"
               required
             />
           </div>
           <div class="mb-3">
-            <label for="customName" class="form-label">Custom Name</label>
+            <label for="customName" class="form-label">Enter Custom Name</label>
             <input
               type="text"
               id="customName"
               name="customName"
               class="form-control"
-              placeholder="Enter Name... Ex. manish"
+              placeholder="Ex.. http://domain.com/yourCustomname-ABCD"
               required
             />
           </div>
-          <button type="submit" class="btn btn-primary" style="margin-left: 150px;">Generate</button>
+          <h4 class="text-center">
+            <span
+              th:text="'Current count: ' + ${count} + ', Limit: ' + ${limit}"
+            ></span>
+            <br />
+            <small th:if="${count < limit}">
+              You have <strong th:text="${limit - count}"></strong> URLs left to
+              shorten.
+            </small>
+            
+            <small th:if="${count == limit}">
+              You have reached the limit of URL shortening. Please wait for the
+              count to reset or consider upgrading to a premium plan.
+            </small>
+            <small th:if="${count > limit}">
+              You have exceeded the limit of shortened URLs. To unlock unlimited
+              URL shortening and other premium features, consider purchasing a
+              premium plan.
+            </small>
+            <hr/>
+          </h4>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+            style="justify-content: center"
+            th:unless="${count >= limit}"
+          >
+            <span>Generate</span>
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            style="justify-content: center"
+            th:if="${count >= limit}"
+            disabled
+          >
+            <span>Generate</span>
+          </button>
         </div>
       </form>
-      <div class="idk mt-2">
+      <div class="container mt-1 text-center p-1">
         <div th:if="${urlNotValid != null}">
           <div class="alert alert-success p-1" role="alert">
-            <p>
+            <p style="margin-bottom: -14px">
               <span class="badge bg-danger">Failed! </span>
               <span>Try Again!</span>
             </p>
             <hr />
             <div
-              class="alert alert-danger d-flex align-items-center p-1"
+              class="alert alert-danger d-flex align-items-center p-0"
               role="alert"
             >
-              <svg
-                class="bi flex-shrink-0 me-2"
-                width="14"
-                height="14"
-                role="img"
-                aria-label="Danger:"
-              >
-                <use xlink:href="#exclamation-triangle-fill" />
-              </svg>
-              <span th:text="${urlNotValid}"></span>
+              <div class="msg text-center">
+                <!-- Add the 'text-center' class to center the message -->
+                <svg
+                  class="bi flex-shrink-0 me-2"
+                  width="14"
+                  height="14"
+                  role="img"
+                  aria-label="Danger:"
+                >
+                  <use xlink:href="#exclamation-triangle-fill" />
+                </svg>
+                <span th:text="${urlNotValid}"></span>
+              </div>
             </div>
           </div>
         </div>
         <div th:if="${shortenedUrl != null}">
-          <div class="alert alert-success p-1" role="alert">
-            <p>
+          <div class="alert alert-success p-0" role="alert">
+            <p style="margin-bottom: -14px">
               <span class="badge bg-success">Link </span>
               <span th:text="${domain + shortenedUrl}"></span>
             </p>
             <hr />
             <div
-              class="alert alert-success d-flex align-items-center p-2"
+              class="alert alert-success d-flex align-items-center p-0 msg"
+              style="margin-right: 45px"
               role="alert"
             >
               <svg
