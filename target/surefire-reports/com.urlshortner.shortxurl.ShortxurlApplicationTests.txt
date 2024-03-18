@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.urlshortner.shortxurl.ShortxurlApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 18.30 s -- in com.urlshortner.shortxurl.ShortxurlApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 14.86 s -- in com.urlshortner.shortxurl.ShortxurlApplicationTests
