@@ -3,7 +3,7 @@
 FROM apache/solr-nightly:10.0.0-SNAPSHOT-java21 AS build
 
 # Set the working directory in the container
-#WORKDIR /app
+WORKDIR /app
 
 # Copy the packaged jar file into the container
 COPY target/shortxurl-0.0.1-SNAPSHOT.jar /app/
