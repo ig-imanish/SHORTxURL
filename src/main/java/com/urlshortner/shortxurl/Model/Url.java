@@ -11,7 +11,7 @@ import jakarta.persistence.Id;
 @Component
 public class Url {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+   // @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String shortUrl;
     private String originalUrl;
