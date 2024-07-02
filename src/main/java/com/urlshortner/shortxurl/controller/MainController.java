@@ -54,8 +54,8 @@ public class MainController {
     }
 
     @PostMapping("/shortxurl")
-    public String shortUrlRedirect(@RequestParam("originalUrl") String originalUrl,
-            @RequestParam("customName") String customName,
+    public String shortUrlRedirect(@RequestParam String originalUrl,
+            @RequestParam String customName,
             RedirectAttributes redirectAttributes, HttpSession session, Model model) {
         if (originalUrl == null || originalUrl.isEmpty() || customName == null || customName.isEmpty()) {
             redirectAttributes.addFlashAttribute("urlNotValid", "URL and custom name cannot be empty");
@@ -102,7 +102,7 @@ public class MainController {
     }
 
     @GetMapping("/{shortUrl}")
-    public ResponseEntity<?> redirectToOrgUrl(@PathVariable("shortUrl") String shortUrl) {
+    public ResponseEntity<?> redirectToOrgUrl(@PathVariable String shortUrl) {
         Url originalUrl = urlService.getUrlByUrl(shortUrl);
         if (originalUrl != null && originalUrl.getOriginalUrl() != null) {
             return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(originalUrl.getOriginalUrl())).build();

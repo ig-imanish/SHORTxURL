@@ -1,20 +1,15 @@
-# Use a JDK 21 base image
-
-FROM apache/solr-nightly:10.0.0-SNAPSHOT-java21 AS build
-
-# Set the working directory in the container
+# Stage 1: Build the application
+FROM maven:3.9.7-sapmachine-22 AS build
 WORKDIR /app
+COPY pom.xml .
+RUN mvn dependency:go-offline
 
-# Copy the packaged jar file into the container
-COPY target/shortxurl-0.0.1-SNAPSHOT.jar /app/
-#COPY target/*.jar app.jar
+COPY src ./src
+RUN mvn clean package -DskipTests
 
-# Expose the port your application runs on
+# Stage 2: Create the final image
+FROM openjdk:21
+WORKDIR /app
+COPY --from=build /app/target/*.jar /app/application.jar
 EXPOSE 8080
-
-# Command to run your application
-#CMD [java, -jar, shortxurl-0.0.1-SNAPSHOT.jar]
-ENTRYPOINT ["java", "-jar", "shortxurl-0.0.1-SNAPSHOT.jar"]
-
-# sudo docker build -t shortxurl-image .
-# sudo docker run -p 8080:8080 shortxurl-image
+CMD ["java", "-jar", "application.jar"]
