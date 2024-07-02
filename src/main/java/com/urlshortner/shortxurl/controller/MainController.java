@@ -1,5 +1,6 @@
 package com.urlshortner.shortxurl.controller;
 
+import java.util.UUID;
 import java.net.URI;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -88,8 +89,14 @@ public class MainController {
         }
 
         session.setAttribute("count", ++count);
+UUID uuid = UUID.randomUUID();
 
+    // Convert the UUID to a String for easier use
+    String uniqueID = uuid.toString();
+
+        
         Url url = new Url();
+        url.setId(uniqueID);
         url.setCustomName(customName);
         url.setOriginalUrl(originalUrl);
         String shorterUrl = helper.generateRandomString(customName);
