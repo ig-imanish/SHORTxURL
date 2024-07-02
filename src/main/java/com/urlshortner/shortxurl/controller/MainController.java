@@ -101,7 +101,6 @@ public class MainController {
         return "redirect:/index";
     }
 
-    @SuppressWarnings("null")
     @GetMapping("/{shortUrl}")
     public ResponseEntity<?> redirectToOrgUrl(@PathVariable("shortUrl") String shortUrl) {
         Url originalUrl = urlService.getUrlByUrl(shortUrl);
