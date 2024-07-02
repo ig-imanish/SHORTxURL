@@ -90,10 +90,10 @@ public class MainController {
 
         session.setAttribute("count", ++count);
 UUID uuid = UUID.randomUUID();
-
-    // Convert the UUID to a String for easier use
-    String uniqueID = uuid.toString();
-
+        
+        // Get the least significant bits and convert to an integer
+        int uniqueID = (int) (uuid.getLeastSignificantBits() & 0xFFFFFFFFL);
+        
         
         Url url = new Url();
         url.setId(uniqueID);
