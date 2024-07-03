@@ -26,7 +26,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class MainController {
 
-    private final int limit = 50;
+ //   private final int limit = 50;
 
     @Value("${your.domain.name}")
     String domain;
@@ -44,13 +44,13 @@ public class MainController {
 
     @GetMapping("/index")
     public String showIndexPage(HttpSession session, Model model) {
-        Integer count = (Integer) session.getAttribute("count");
+  /*      Integer count = (Integer) session.getAttribute("count");
         if (count == null) {
             count = 0;
         }
         System.out.println(count);
         model.addAttribute("count", count);
-        model.addAttribute("limit", limit);
+        model.addAttribute("limit", limit);*/
         return "index";
     }
 
@@ -77,7 +77,7 @@ public class MainController {
             return "redirect:/index";
         }
 
-        Integer count = (Integer) session.getAttribute("count");
+       /* Integer count = (Integer) session.getAttribute("count");
         if (count == null) {
             count = 0;
         }
@@ -89,7 +89,8 @@ public class MainController {
         }
 
         session.setAttribute("count", ++count);
-UUID uuid = UUID.randomUUID();
+*/
+        UUID uuid = UUID.randomUUID();
         
         // Get the least significant bits and convert to an integer
         int uniqueID = (int) (uuid.getLeastSignificantBits() & 0xFFFFFFFFL);
