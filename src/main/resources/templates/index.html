@@ -171,11 +171,11 @@
               id="customName"
               name="customName"
               class="form-control"
-              placeholder="Ex.. http://domain.com/yourCustomname-ABCD"
+              placeholder="Ex..http://domain.com/yourCustomname-ABCD"
               required
             />
           </div>
-          <h4 class="text-center">
+         <!-- <h4 class="text-center">
             <span
               th:text="'Current count: ' + ${count} + ', Limit: ' + ${limit}"
             ></span>
@@ -196,24 +196,24 @@
             </small>
             <hr/>
           </h4>
-
+-->
           <button
             type="submit"
             class="btn btn-primary"
             style="justify-content: center"
-            th:unless="${count >= limit}"
+            
           >
             <span>Generate</span>
           </button>
-          <button
+         <!-- <button
             type="submit"
             class="btn btn-primary"
             style="justify-content: center"
-            th:if="${count >= limit}"
+            
             disabled
           >
             <span>Generate</span>
-          </button>
+          </button> -->
         </div>
       </form>
       <div class="container mt-1 text-center p-1">
@@ -272,6 +272,12 @@
       </div>
     </div>
 
+        <footer class="text-center mt-4">
+  <div class="container">
+    <p class="mb-0">&copy; 2024 Manish Kumar. All rights reserved. <a href="https://itzmanish.tech" class="text-decoration-none">itzmanish.tech</a></p>
+  </div>
+        </footer>
+    
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
