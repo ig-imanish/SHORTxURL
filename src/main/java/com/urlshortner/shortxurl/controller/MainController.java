@@ -109,13 +109,25 @@ public class MainController {
         return "redirect:/index";
     }
 
-    @GetMapping("/{shortUrl}")
+  /*  @GetMapping("/{shortUrl}")
     public ResponseEntity<?> redirectToOrgUrl(@PathVariable String shortUrl) {
         Url originalUrl = urlService.getUrlByUrl(shortUrl);
         if (originalUrl != null && originalUrl.getOriginalUrl() != null) {
             return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(originalUrl.getOriginalUrl())).build();
         } else {
             return ResponseEntity.notFound().build();
+        }
+    }
+*/
+ @GetMapping("/{shortUrl}")
+    public ResponseEntity<String> redirectToOrgUrl(@PathVariable String shortUrl) {
+        Url originalUrl = urlService.getUrlByUrl(shortUrl);
+        if (originalUrl != null && originalUrl.getOriginalUrl() != null) {
+            URI uri = URI.create(originalUrl.getOriginalUrl());
+            String redirectingMessage = "<html><body><h1>Redirecting to " + uri.toString() + "</h1></body></html>";
+            return ResponseEntity.status(HttpStatus.FOUND).location(uri).body(redirectingMessage);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("<html><body><h1>URL not found</h1></body></html>");
         }
     }
 
