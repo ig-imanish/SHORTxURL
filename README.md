@@ -12,7 +12,7 @@ Description: [ a simple Spring boot project To short your Url!]
 [Demo Yt Video](https://youtu.be/mzomTiJcolI?feature=shared)
 ## Features
 
-- [50 Url Per Client]
+- [Custom Name]
 - [Beautiful UI]
 
 ## Installation
