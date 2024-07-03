@@ -58,6 +58,12 @@ public class MainController {
     public String shortUrlRedirect(@RequestParam String originalUrl,
             @RequestParam String customName,
             RedirectAttributes redirectAttributes, HttpSession session, Model model) {
+     originalUrl = originalUrl.trim();
+    customName = customName.trim();
+    
+    // Replace spaces with dashes inside customName
+    customName = customName.replace(" ", "-");
+    
         if (originalUrl == null || originalUrl.isEmpty() || customName == null || customName.isEmpty()) {
             redirectAttributes.addFlashAttribute("urlNotValid", "URL and custom name cannot be empty");
             return "redirect:/index";
