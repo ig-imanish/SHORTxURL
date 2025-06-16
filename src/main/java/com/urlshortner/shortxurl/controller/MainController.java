@@ -2,6 +2,7 @@ package com.urlshortner.shortxurl.controller;
 
 import java.util.UUID;
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -44,13 +45,6 @@ public class MainController {
 
     @GetMapping("/index")
     public String showIndexPage(HttpSession session, Model model) {
-  /*      Integer count = (Integer) session.getAttribute("count");
-        if (count == null) {
-            count = 0;
-        }
-        System.out.println(count);
-        model.addAttribute("count", count);
-        model.addAttribute("limit", limit);*/
         return "index";
     }
 
@@ -61,7 +55,6 @@ public class MainController {
      originalUrl = originalUrl.trim();
     customName = customName.trim();
     
-    // Replace spaces with dashes inside customName
     customName = customName.replace(" ", "-");
     
         if (originalUrl == null || originalUrl.isEmpty() || customName == null || customName.isEmpty()) {
@@ -83,22 +76,8 @@ public class MainController {
             return "redirect:/index";
         }
 
-       /* Integer count = (Integer) session.getAttribute("count");
-        if (count == null) {
-            count = 0;
-        }
-
-        if (count >= limit) {
-            model.addAttribute("limit", limit);
-            model.addAttribute("count", count);
-            return "redirect:/index";
-        }
-
-        session.setAttribute("count", ++count);
-*/
         UUID uuid = UUID.randomUUID();
         
-        // Get the least significant bits and convert to an integer
         int uniqueID = (int) (uuid.getLeastSignificantBits() & 0xFFFFFFFFL);
         
         
@@ -108,6 +87,7 @@ public class MainController {
         url.setOriginalUrl(originalUrl);
         String shorterUrl = helper.generateRandomString(customName);
         url.setShortUrl(shorterUrl);
+        url.setCreatedAt(LocalDateTime.now());
 
         Url savedUrl = urlService.saveUrl(url);
         redirectAttributes.addFlashAttribute("domain", domain);
@@ -115,16 +95,6 @@ public class MainController {
         return "redirect:/index";
     }
 
-  /*  @GetMapping("/{shortUrl}")
-    public ResponseEntity<?> redirectToOrgUrl(@PathVariable String shortUrl) {
-        Url originalUrl = urlService.getUrlByUrl(shortUrl);
-        if (originalUrl != null && originalUrl.getOriginalUrl() != null) {
-            return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(originalUrl.getOriginalUrl())).build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-*/
  @GetMapping("/{shortUrl}")
     public ResponseEntity<String> redirectToOrgUrl(@PathVariable String shortUrl) {
         Url originalUrl = urlService.getUrlByUrl(shortUrl);
